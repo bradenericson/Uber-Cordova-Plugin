@@ -24,7 +24,7 @@
             </feature>
         </config-file>
         
-        <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin" />
-        <source-file src="src/ios/HWPHello.m" target-dir="HelloPlugin" />
+        <header-file src="src/ios/Echo.h" target-dir="Echo" />
+        <source-file src="src/ios/Echo.m" target-dir="Echo" />
     </platform>
 </plugin>
