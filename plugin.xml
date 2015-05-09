@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <plugin id="echo-plugin" version="0.2.3">
+    <name>Echo</name>
+    <description>Cordova Echo Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>echo,teste</keywords>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Echo">
+                <param name="android-package" value="com.plugin.echo.Echo"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/Echo.java" target-dir="src/com/plugin/echo" />
+        <js-module src="echo.js" name="echo">
+            <runs />
+        </js-module>
+    </platform>
+</plugin>
