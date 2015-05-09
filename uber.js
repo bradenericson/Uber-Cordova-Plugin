@@ -1,5 +1,5 @@
-window.echo = function(str, callback) {
+window.uber = function(str, callback) {
     cordova.exec(callback, function(err) {
         callback('Nothing to echo.');
-    }, "Echo", "echo", [str]);
+    }, "Uber", "uber", [str]);
 };
