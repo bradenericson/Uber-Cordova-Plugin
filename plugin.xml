@@ -3,11 +3,11 @@
     <name>Uber Cordova</name>
     <description>Cordova Uber Plugin</description>
     <license>Apache 2.0</license>
-    <keywords>echo,teste</keywords>
+    <keywords>uber,test</keywords>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Uber">
-                <param name="android-package" value="com.jabb.plugin.Uber" />
+                <param name="android-package" value="com.jabb.plugin.uber.Uber" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -21,7 +21,7 @@
 		<data android:scheme="uber" />
     </intent-filter>
 	</config-file>
-        <source-file src="src/android/UberPlugin.java" target-dir="src/com/jabb/plugin" />
+        <source-file src="src/android/Uber.java" target-dir="src/com/jabb/plugin/uber" />
         <js-module src="uber.js" name="uber">
             <runs />
         </js-module>
