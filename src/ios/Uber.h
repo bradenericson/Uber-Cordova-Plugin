@@ -1,6 +1,6 @@
     #import <Cordova/CDV.h>
 
-    @interface Echo : CDVPlugin
+    @interface Uber : CDVPlugin
 
     - (void)requestWithUber:(CDVInvokedUrlCommand*)command;
     - (void)getAuthenticationToken:(CDVInvokedUrlCommand*)command;

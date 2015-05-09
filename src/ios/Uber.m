@@ -1,7 +1,7 @@
-#import "Echo.h"
+#import "Uber.h"
     #import <Cordova/CDV.h>
 
-    @implementation Echo
+    @implementation Uber
 
     - (void)requestWithUber:(CDVInvokedUrlCommand*)command
     {       
@@ -18,15 +18,8 @@
         
         NSDictionary *payloadDictionary = [command.arguments objectAtIndex:0];
         
-        
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
                 // Do something awesome - the app is installed! Launch App.
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uber Success!"
-//                                                message:@"I found Uber on your device!"
-//                                               delegate:self
-//                                      cancelButtonTitle:@"OK"
-//                                      otherButtonTitles:nil];
-//                [alert show];
                 
                 //The URL for NSURL will contain additional parameters with predetermined address from and to
                 
@@ -35,7 +28,9 @@
                 NSString *fromLatitude;
                 NSString *fromLongitude;
                 
-                NSString *queryString = [NSString stringWithFormat:@"uber://?action=setPickup&dropoff[latitude]=%@&dropoff[longitude]=%@", toLatitude, toLongitude];
+                NSString *queryString = [NSString stringWithFormat:@"uber://?action=setPickup&dropoff[latitude]=%@&dropoff[longitude]=%@", 
+                                                    toLatitude, 
+                                                    toLongitude];
                 
                 if (payloadDictionary[@"fromLatitude" ] != nil && payloadDictionary[@"fromLatitude" ] != nil) {
                     queryString = [queryString stringByAppendingString:@""];
@@ -48,7 +43,6 @@
                 if (payloadDictionary[@"fromLatitude" ] != nil) {
                     fromLongitude = payloadDictionary[@"fromLongitude"];
                 }
-                
                 
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:queryString]];
             }
