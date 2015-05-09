@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-    <plugin id="echo-plugin" version="0.2.3">
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin id="echo-plugin" version="0.2.3">
     <name>Echo</name>
     <description>Cordova Echo Plugin</description>
     <license>Apache 2.0</license>
@@ -7,7 +7,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Echo">
-                <param name="android-package" value="com.plugin.echo.Echo"/>
+                <param name="android-package" value="com.plugin.echo.Echo" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -15,5 +15,16 @@
         <js-module src="echo.js" name="echo">
             <runs />
         </js-module>
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Echo">
+                <param name="ios-package" value="Echo" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin" />
+        <source-file src="src/ios/HWPHello.m" target-dir="HelloPlugin" />
     </platform>
 </plugin>
