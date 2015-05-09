@@ -23,8 +23,11 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-        
         <header-file src="src/ios/Echo.h" target-dir="Echo" />
         <source-file src="src/ios/Echo.m" target-dir="Echo" />
+        
+        <js-module src="echo.js" name="echo">
+            <runs />
+        </js-module>
     </platform>
 </plugin>
