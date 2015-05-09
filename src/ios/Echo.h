@@ -2,6 +2,6 @@
 
     @interface Echo : CDVPlugin
 
-    - (void)echo:(CDVInvokedUrlCommand*)command;
-
+    - (void)requestWithUber:(CDVInvokedUrlCommand*)command;
+    - (void)getAuthenticationToken:(CDVInvokedUrlCommand*)command;
     @end
