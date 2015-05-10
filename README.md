@@ -1,6 +1,10 @@
 # uber-cordova-plugin
 Uber plugin for cordova/phonegap
 
+## supported platforms
+* Android
+* iOS
+
 ## usage
 ```javascript
 
