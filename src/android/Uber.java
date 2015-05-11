@@ -6,44 +6,92 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.pm.PackageManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import java.lang.StringBuilder;
+
 /**
- * This class echoes a string called from JavaScript.
+ * Cordova plugin for the Uber app.
+ *
+ * Created by Ben Hansen on 5/11/15.
  */
 public class Uber extends CordovaPlugin {
+    private static final String UBER_ACTION = "requestWithUber";
+    private static final String UBER_PACKAGE = "com.ubercab";
+
+    private Context context = null;
+    private PackageManager packageManager = null;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("requestWithUber")) {
-            JSONObject payload = (JSONObject)args.get(0);
-            this.uber(payload,callbackContext);
+        this.context = this.cordova.getActivity().getApplicationContext();
+        this.packageManager = this.context.getPackageManager();
+
+        if (action.equals(UBER_ACTION)) {
+            if(!this.isUberInstalled()) {
+                callbackContext.error("The Uber app is not installed!");
+            } else {
+                JSONObject payload = (JSONObject)args.get(0);
+                this.launchUber(payload,callbackContext);
+            }
             return true;
         }
         return false;
     }
 
-    private void uber(JSONObject payload, CallbackContext callbackContext) throws JSONException {
-        Context context = this.cordova.getActivity().getApplicationContext();
-        PackageManager pm = context.getPackageManager();
+    /**
+     * Checks to see if the Uber app is installed on the users device.
+     *
+     * @return true if installed, else false.
+     */
+    private boolean isUberInstalled() {
         try {
-            pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
-            Intent uberIntent = pm.getLaunchIntentForPackage("com.ubercab");
-
-            uberIntent.setData(Uri.parse("uber://?action=setPickup&pickup[latitude]="+payload.get("fromLatitude").toString()+"&pickup[longitude]="+payload.get("fromLongitude").toString()+"&pickup[nickname]=UberHQ&pickup[formatted_address]=1455%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103&dropoff[latitude]="+payload.get("toLatitude").toString()+"&dropoff[longitude]="+payload.get("toLongitude").toString()+"&dropoff[nickname]=Coit%20Tower&dropoff[formatted_address]=1%20Telegraph%20Hill%20Blvd%2C%20San%20Francisco%2C%20CA%2094133&product_id="+payload.get("productId").toString()));
-            context.startActivity(uberIntent);
+            this.packageManager.getPackageInfo(UBER_PACKAGE, PackageManager.GET_ACTIVITIES);
+            return true;
         } catch (PackageManager.NameNotFoundException e) {
-            callbackContext.error("The uber app is NOT installed");
+            return false;
         }
     }
 
-    private void echo(String message, CallbackContext callbackContext) {
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
+    /**
+     * Constructs a deep link URI from a JSONObject containing
+     * the payload data.
+     *
+     * @param payload the payload
+     * @return deep link URI
+     * @throws JSONException
+     */
+    private Uri uriFromPayload(JSONObject payload) throws JSONException {
+        StringBuilder sb = new StringBuilder("uber://?action=setPickup&pickup[latitude]=");
+        sb.append(payload.get("fromLatitude").toString());
+        sb.append("&pickup[longitude]=").append(payload.get("fromLongitude").toString());
+        sb.append("&dropoff[latitude]=").append(payload.get("toLatitude").toString());
+        sb.append("&dropoff[longitude]=").append(payload.get("toLongitude").toString());
+
+        // Include optional productId value if it exists
+        if(payload.has("productId") && !payload.isNull("productId")) {
+            sb.append("&product_id=").append(payload.get("productId").toString());
+        }
+        return Uri.parse(sb.toString());
+    }
+
+    /**
+     * Launches the Uber app.
+     *
+     * @param payload the payload
+     * @param callbackContext callback to the javascript layer
+     */
+    private void launchUber(JSONObject payload, CallbackContext callbackContext) {
+        try {
+            Intent uberIntent = this.packageManager.getLaunchIntentForPackage(UBER_PACKAGE);
+            uberIntent.setData(this.uriFromPayload(payload));
+            this.context.startActivity(uberIntent);
+        } catch (JSONException jse) {
+            callbackContext.error(jse.getMessage());
         }
     }
 }

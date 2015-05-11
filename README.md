@@ -13,7 +13,7 @@ Uber plugin for cordova/phonegap
     toLongitude: "-122.405818",
     fromLatitude: "37.775818",
     fromLongitude: "-122.418028",
-    productId: "a1111c8c-c720-46c3-8534-2fcdd730040d"
+    productId: "a1111c8c-c720-46c3-8534-2fcdd730040d" // [optional]
 };
 
 window.uber(uberData, function(error) {
