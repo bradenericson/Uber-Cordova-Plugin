@@ -8,14 +8,7 @@
            CDVPluginResult* pluginResult = nil;
            
           //[NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Progress"
-                                                        message:@"About to create payload"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
+                
         NSDictionary *payloadDictionary = [command.arguments objectAtIndex:0];
         
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
