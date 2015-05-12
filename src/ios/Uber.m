@@ -26,15 +26,16 @@
                                                     toLongitude];
                 
                 if (payloadDictionary[@"fromLatitude" ] != nil && payloadDictionary[@"fromLatitude" ] != nil) {
-                    queryString = [queryString stringByAppendingString:@""];
+                    queryString = [NSString stringWithFormat:@"%@&pickup[latitude]=%@&pickup[longitude]=%@",
+                                                queryString,
+                                                payloadDictionary[@"fromLatitude"],
+                                                payloadDictionary[@"fromLongitude"]];
                 }
-                
-                if (payloadDictionary[@"fromLatitude" ] != nil) {
-                    fromLatitude = payloadDictionary[@"toLatitude"];
-                }
-                
-                if (payloadDictionary[@"fromLatitude" ] != nil) {
-                    fromLongitude = payloadDictionary[@"fromLongitude"];
+
+                if (payloadDictionary[@"productId"] != nil) {
+                    queryString = [NSString stringWithFormat: @"%@&product_id=%@",
+                                                queryString,
+                                                payloadDictionary[@"productId"]];
                 }
                 
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:queryString]];
