@@ -1,5 +1,10 @@
 # uber-cordova-plugin
-Uber plugin for cordova/phonegap
+Uber plugin for Cordova/PhoneGap
+
+## how to install
+```
+cordova plugin add https://github.com/bradenericson/U-C-P
+```
 
 ## supported platforms
 * Android
