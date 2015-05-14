@@ -1,14 +1,12 @@
 #import "Uber.h"
-    #import <Cordova/CDV.h>
+#import <Cordova/CDV.h>
 
     @implementation Uber
 
     - (void)requestWithUber:(CDVInvokedUrlCommand*)command
     {       
-           CDVPluginResult* pluginResult = nil;
-           
-          //[NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-                
+        CDVPluginResult* pluginResult = nil;
+        
         NSDictionary *payloadDictionary = [command.arguments objectAtIndex:0];
         
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
@@ -16,29 +14,67 @@
                 
                 //The URL for NSURL will contain additional parameters with predetermined address from and to
                 
+                NSString *clientId = payloadDictionary[@"clientId"];
                 NSString *toLatitude = payloadDictionary[@"toLatitude"];
                 NSString *toLongitude = payloadDictionary[@"toLongitude"];
-                NSString *fromLatitude;
-                NSString *fromLongitude;
+                NSString *fromLatitude = payloadDictionary[@"fromLatitude"];
+                NSString *fromLongitude = payloadDictionary[@"fromLongitude"];
+                NSString *productId = payloadDictionary[@"productId"];
+                NSString *fromAddress = payloadDictionary[@"fromAddress"];
+                NSString *toAddress = payloadDictionary[@"toAddress"];
+                NSString *fromNickname = payloadDictionary[@"fromNickname"];
+                NSString *toNickname = payloadDictionary[@"toNickname"];
                 
                 NSString *queryString = [NSString stringWithFormat:@"uber://?action=setPickup&dropoff[latitude]=%@&dropoff[longitude]=%@", 
-                                                    toLatitude, 
-                                                    toLongitude];
+                                         toLatitude,
+                                         toLongitude];
                 
-                if (payloadDictionary[@"fromLatitude" ] != nil && payloadDictionary[@"fromLatitude" ] != nil) {
+                if (fromLatitude != nil && fromLongitude != nil) {
                     queryString = [NSString stringWithFormat:@"%@&pickup[latitude]=%@&pickup[longitude]=%@",
-                                                queryString,
-                                                payloadDictionary[@"fromLatitude"],
-                                                payloadDictionary[@"fromLongitude"]];
+                                   queryString,
+                                   fromLatitude,
+                                   fromLongitude];
                 }
 
-                if (payloadDictionary[@"productId"] != nil) {
+                if (productId != nil) {
                     queryString = [NSString stringWithFormat: @"%@&product_id=%@",
-                                                queryString,
-                                                payloadDictionary[@"productId"]];
+                                   queryString,
+                                   productId];
                 }
                 
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:queryString]];
+                if (clientId != nil) {
+                    queryString = [NSString stringWithFormat:@"%@&client_id=%@",
+                                   queryString,
+                                   clientId];
+                }
+                
+                if (fromAddress != nil) {
+                    queryString = [NSString stringWithFormat:@"%@&pickup[formatted_address]=%@",
+                                   queryString,
+                                   fromAddress];
+                }
+                
+                if (toAddress != nil) {
+                    queryString = [NSString stringWithFormat:@"%@&dropoff[formatted_address]=%@",
+                                   queryString,
+                                   toAddress];
+                }
+                
+                if (fromNickname != nil) {
+                    queryString = [NSString stringWithFormat:@"%@&pickup[nickname]=%@",
+                                   queryString,
+                                   fromNickname];
+                }
+                
+                if (toNickname != nil) {
+                    queryString = [NSString stringWithFormat:@"%@&dropoff[nickname]=%@",
+                                   queryString,
+                                   toNickname];
+                }
+                
+                NSString *encodedString = [queryString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:encodedString]];
             }
             else {
                 // No Uber app! Open Mobile Website.
