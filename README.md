@@ -70,11 +70,4 @@ For detailed information about these fields, see the [Uber developers website]
 
 ## coming soon
 
-* iOS support for the following fields
-    * clientId
-    * toAddress
-    * fromAddress
-    * toNickname
-    * fromNickname
-
 * Redirect to [m.uber.com] (https://m.uber.com/) when the mobile app isn't found on the users device.
