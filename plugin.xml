@@ -22,6 +22,7 @@
     </intent-filter>
 	</config-file>
         <source-file src="src/android/Uber.java" target-dir="src/com/jabb/plugin/uber" />
+	<source-file src="src/android/UberUtils.java" target-dir="src/com/jabb/plugin/uber" />
         <js-module src="uber.js" name="uber">
             <runs />
         </js-module>

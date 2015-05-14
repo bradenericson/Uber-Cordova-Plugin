@@ -10,14 +10,12 @@ import org.json.JSONObject;
 import android.content.pm.PackageManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-
-import java.lang.StringBuilder;
 
 /**
  * Cordova plugin for the Uber app.
  *
  * Created by Ben Hansen on 5/11/15.
+ * Last updated 5/13/15
  */
 public class Uber extends CordovaPlugin {
     private static final String UBER_ACTION = "requestWithUber";
@@ -26,6 +24,14 @@ public class Uber extends CordovaPlugin {
     private Context context = null;
     private PackageManager packageManager = null;
 
+    /**
+     *
+     * @param action          The action to execute.
+     * @param args            The exec() arguments.
+     * @param callbackContext The callback context used when calling back into JavaScript.
+     * @return service confirmation
+     * @throws JSONException
+     */
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.context = this.cordova.getActivity().getApplicationContext();
@@ -58,28 +64,6 @@ public class Uber extends CordovaPlugin {
     }
 
     /**
-     * Constructs a deep link URI from a JSONObject containing
-     * the payload data.
-     *
-     * @param payload the payload
-     * @return deep link URI
-     * @throws JSONException
-     */
-    private Uri uriFromPayload(JSONObject payload) throws JSONException {
-        StringBuilder sb = new StringBuilder("uber://?action=setPickup&pickup[latitude]=");
-        sb.append(payload.get("fromLatitude").toString());
-        sb.append("&pickup[longitude]=").append(payload.get("fromLongitude").toString());
-        sb.append("&dropoff[latitude]=").append(payload.get("toLatitude").toString());
-        sb.append("&dropoff[longitude]=").append(payload.get("toLongitude").toString());
-
-        // Include optional productId value if it exists
-        if(payload.has("productId") && !payload.isNull("productId")) {
-            sb.append("&product_id=").append(payload.get("productId").toString());
-        }
-        return Uri.parse(sb.toString());
-    }
-
-    /**
      * Launches the Uber app.
      *
      * @param payload the payload
@@ -88,7 +72,7 @@ public class Uber extends CordovaPlugin {
     private void launchUber(JSONObject payload, CallbackContext callbackContext) {
         try {
             Intent uberIntent = this.packageManager.getLaunchIntentForPackage(UBER_PACKAGE);
-            uberIntent.setData(this.uriFromPayload(payload));
+            uberIntent.setData(UberUtils.uriFromPayload(payload));
             this.context.startActivity(uberIntent);
         } catch (JSONException jse) {
             callbackContext.error(jse.getMessage());
