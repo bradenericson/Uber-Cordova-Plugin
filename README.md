@@ -6,7 +6,7 @@ Uber app from a convenient, easy to use JavaScript interface.
 
 ## how to install
 ```
-cordova plugin add https://github.com/bradenericson/U-C-P
+cordova plugin add com.jabb.plugin.uber
 ```
 
 ## supported platforms
