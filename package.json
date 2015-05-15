@@ -1,0 +1,16 @@
+{
+    "version": "0.2.3",
+    "name": "com.jabb.plugin.uber",
+    "cordova_name": "Uber Cordova",
+    "description": "Cordova Uber Plugin",
+    "license": "Apache 2.0",
+    "keywords": [
+        "uber",
+        "test"
+    ],
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "engines": []
+}

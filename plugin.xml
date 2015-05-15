@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<plugin id="uber-cordova-plugin" version="0.2.3">
+<plugin id="com.jabb.plugin.uber" version="0.2.3">
     <name>Uber Cordova</name>
     <description>Cordova Uber Plugin</description>
     <license>Apache 2.0</license>
