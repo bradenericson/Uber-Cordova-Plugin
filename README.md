@@ -3,6 +3,7 @@ Apache Cordova/PhoneGap plugin for the Uber app.
 
 This plugin provides a service for deep linking with the
 Uber app from a convenient, easy to use JavaScript interface.
+>We also recommend using this plugin in conjunction with our [angular module] (https://github.com/bradenericson/Uber-Angular-Module)
 
 ## how to install
 ```

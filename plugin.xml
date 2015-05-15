@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<plugin id="com.jabb.plugin.uber" version="0.2.3">
+<plugin id="com.jabb.plugin.uber" version="0.2.5">
     <name>Uber Cordova</name>
     <description>Cordova Uber Plugin</description>
     <license>Apache 2.0</license>
     <keywords>uber,test</keywords>
+    <repo>https://github.com/bradenericson/Uber-Cordova-Plugin.git</repo>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Uber">
